@@ -58,6 +58,21 @@
                     <td th:text="${customer.custAddress}"></td>
                     <td th:text="${customer.custRegion}"></td>
                     <td th:text="${customer.custCountry}"></td>
+                    <!-- Edit Link -->
+                    <td>
+                        <a
+                            th:href="@{/editCustomer/{custId}(custId=${customer.custId})}"
+                            >✏️</a
+                        >
+                    </td>
+                    <!-- Delete Link -->
+                    <td>
+                        <a
+                            th:href="@{/deleteCustomer/{custId}(custId=${customer.custId})}"
+                            onclick="return confirm('Are you sure you want to delete this customer?');"
+                            >🗑️</a
+                        >
+                    </td>
                 </tr>
             </table>
         </main>

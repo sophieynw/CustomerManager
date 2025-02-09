@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ca.sheridancollege.wangyana.beans.Customer;
@@ -45,7 +46,6 @@ public class HomeController {
     @GetMapping("/searchCustomers")
     public String searchCustomers(Model model,
             @RequestParam(name = "custRegion", required = false, defaultValue = "All") String custRegion) {
-
         List<Customer> customerList = da.getCustomerList();
         model.addAttribute("regions", da.getRegionList());
         if ("All".equals(custRegion) || custRegion.isEmpty()) {
@@ -65,6 +65,32 @@ public class HomeController {
         model.addAttribute("customer", new Customer());
         model.addAttribute("regions", da.getRegionList());
         model.addAttribute("customerList", da.getCustomerList());
+    }
+
+    // method to delete Customer from database and reload searchCustomers.html
+    @GetMapping("/deleteCustomer/{custId}")
+    public String deleteCustomer(Model model, @PathVariable Long custId) {
+        da.deleteCustomer(custId);
+        return "redirect:/searchCustomers";
+    }
+
+    // method to update Customer in database and
+    // pass Customer object to editCustomer.html
+    @GetMapping("/editCustomer/{custId}")
+    public String editCustomer(Model model, @PathVariable Long custId) {
+        Customer customer = da.getCustomerById(custId).get(0);
+        model.addAttribute("customer", customer);
+        model.addAttribute("regions", da.getRegionList());
+        return "editCustomer";
+    }
+
+    // method to update Customer in database and reload searchCustomers.html
+    @PostMapping("/updateCustomer")
+    public String editCustomer(Model model, @ModelAttribute Customer customer) {
+        da.updateCustomerById(customer.getCustId(), customer.getCustName(),
+                customer.getCustAddress(), customer.getCustRegion(),
+                customer.getCustCountry());
+        return "redirect:/searchCustomers";
     }
 
 }
