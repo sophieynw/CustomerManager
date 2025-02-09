@@ -1,27 +1,7 @@
-# Step 1: Build stage
-FROM eclipse-temurin:21-jdk AS build
-
-# Set the working directory
-WORKDIR /app
-
-# Copy Maven project files (to leverage Docker caching)
-COPY pom.xml .
-COPY src ./src
-
-# Package the application
-RUN mvn clean package -DskipTests
-
-# Step 2: Run stage (Slim image for optimized runtime)
-FROM eclipse-temurin:21-jdk-slim
-
-# Set working directory in the container
-WORKDIR /app
-
-# Expose application port
-EXPOSE 8080
-
-# Copy the JAR file from the build stage
-COPY --from=build /app/target/*.jar app.jar
-
-# Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+FROM ubuntu:latest AS build
+RUN apt-get update && apt-get install openjdk-21-jdk -y
+COPY . .
+RUN ./mvnw package
+FROM openjdk:21-jdk
+COPY --from=target /target/A2SophieWang-0.0.1-SNAPSHOT.jar app.jar
+ENTRYPOINT [ "java", "-jar", "app.jar" ]
