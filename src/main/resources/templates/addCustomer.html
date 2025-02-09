@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Add Customer</title>
+        <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    </head>
+    <body>
+        <header>
+            <h1>Add Customer</h1>
+            <!-- insert navbar -->
+            <div th:insert="fragments/navbar :: body"></div>
+        </header>
+        <main>
+            <h3>Add Customer Form</h3>
+            <p>Please input the following customer information:</p>
+            <!-- form for adding customers -->
+            <form
+                action="#"
+                method="POST"
+                th:action="@{/addCustomer}"
+                th:object="${customer}"
+            >
+                <input type="number" th:field="*{custId}" hidden />
+                <label>Name: 
+                	<input type="text" th:field="*{custName}" required />
+                </label>
+                <label>Address:
+                    <input type="text" th:field="*{custAddress}" required />
+                </label>
+                <label>Region:
+                    <select th:field="*{custRegion}" required>
+                        <option
+                            th:each="region : ${regions}"
+                            th:value="${region.territoriesAndProvinces}"
+                            th:text="${region.territoriesAndProvinces}"
+                        ></option>
+                    </select>
+                </label>
+                <label>Country:
+                    <input type="text" th:field="*{custCountry}" required />
+                </label>
+                <input
+                    type="submit"
+                    value="Add Customer"
+                    th:formaction="@{/addCustomer}"
+                />
+            </form>
+        </main>
+        <!-- insert footer -->
+        <div th:insert="fragments/footer :: body"></div>
+    </body>
+</html>

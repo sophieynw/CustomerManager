@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Home</title>
+        <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    </head>
+    <body>
+        <header>
+            <h1>Home</h1>
+            <!-- insert navbar -->
+            <div th:insert="fragments/navbar :: body"></div>
+        </header>
+        <main>
+            <p>Welcome to the Customer Manager Application!</p>
+        </main>
+        <!-- insert footer -->
+        <div th:insert="fragments/footer :: body"></div>
+    </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>List Customers</title>
+        <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    </head>
+    <body>
+        <header>
+            <h1>Customer List</h1>
+            <!-- insert navbar -->
+            <div th:insert="fragments/navbar :: body"></div>
+        </header>
+        <main>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Region</th>
+                    <th>Country</th>
+                </tr>
+                <tr th:each="customer: ${customerList}">
+                    <td th:text="${customer.custId}"></td>
+                    <td th:text="${customer.custName}"></td>
+                    <td th:text="${customer.custAddress}"></td>
+                    <td th:text="${customer.custRegion}"></td>
+                    <td th:text="${customer.custCountry}"></td>
+                </tr>
+            </table>
+        </main>
+        <!-- insert footer -->
+        <div th:insert="fragments/footer :: body"></div>
+    </body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Search Customers</title>
+        <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    </head>
+    <body>
+        <header>
+            <h1>Search Customers</h1>
+            <!-- insert navbar -->
+            <div th:insert="fragments/navbar :: body"></div>
+        </header>
+        <main>
+            <!-- search bar -->
+            <form th:action="@{/searchCustomers}" method="GET" id="searchForm">
+                <label>
+                    Filter by:
+                    <select
+                        name="custRegion"
+                        onchange="document.getElementById('searchForm').submit();"
+                    >
+                        <!-- Change th:field to name -->
+                        <option value="" selected>Select a region</option>
+                        <option
+                            th:each="region : ${regions}"
+                            th:value="${region.territoriesAndProvinces}"
+                            th:text="${region.territoriesAndProvinces}"
+                        ></option>
+                    </select>
+                </label>
+                <!-- Add submit button -->
+            </form>
+            <!-- table of Customer matches -->
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Region</th>
+                    <th>Country</th>
+                </tr>
+                <tr th:each="customer: ${customerList}">
+                    <td th:text="${customer.custId}"></td>
+                    <td th:text="${customer.custName}"></td>
+                    <td th:text="${customer.custAddress}"></td>
+                    <td th:text="${customer.custRegion}"></td>
+                    <td th:text="${customer.custCountry}"></td>
+                </tr>
+            </table>
+        </main>
+        <!-- insert footer -->
+        <div th:insert="fragments/footer :: body"></div>
+    </body>
+</html>
