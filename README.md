@@ -30,3 +30,10 @@ Start the server
   mvn spring-boot:run
 ```
 
+## Development
+
+To access the h2 console, uncomment the following lines in src/main/resources/application.properties
+```
+# spring.h2.console.enabled=true
+# spring.datasource.url=jdbc:h2:mem:testdb
+```
