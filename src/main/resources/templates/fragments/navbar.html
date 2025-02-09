@@ -3,10 +3,27 @@
     <body>
         <nav>
             <ul>
-                <li><a th:href="@{/}">Home</a></li>
-                <li><a th:href="@{/addCustomer}">Add Customer</a></li>
-                <li><a th:href="@{/listCustomers}">View Customers</a></li>
-                <li><a th:href="@{/searchCustomers}">Search Customers</a></li>
+                <li>
+                    <a
+                        th:href="@{/}"
+                        data-full-text="Home"
+                        data-short-text="🏠"
+                    ></a>
+                </li>
+                <li>
+                    <a
+                        th:href="@{/addCustomer}"
+                        data-full-text="Add Customer"
+                        data-short-text="➕"
+                    ></a>
+                </li>
+                <li>
+                    <a
+                        th:href="@{/searchCustomers}"
+                        data-full-text="Search Customers"
+                        data-short-text="🔍"
+                    ></a>
+                </li>
             </ul>
         </nav>
     </body>

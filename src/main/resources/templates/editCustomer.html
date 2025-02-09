@@ -10,16 +10,16 @@
         <header>
             <!-- insert navbar -->
             <div th:insert="~{fragments/navbar :: body}"></div>
-            <h1>Add Customer</h1>
+            <h1>Update Customer Info</h1>
         </header>
         <main>
-            <h3>Add Customer Form</h3>
-            <p>Please input the following customer information:</p>
+            <h3>Update Customer Form</h3>
+            <p>Please input the updated customer information:</p>
             <!-- form for adding customers -->
             <form
                 action="#"
                 method="POST"
-                th:action="@{/addCustomer}"
+                th:action="@{/editCustomer}"
                 th:object="${customer}"
             >
                 <input type="number" th:field="*{custId}" hidden />

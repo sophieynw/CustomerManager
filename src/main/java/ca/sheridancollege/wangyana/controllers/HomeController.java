@@ -1,5 +1,7 @@
 package ca.sheridancollege.wangyana.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ca.sheridancollege.wangyana.beans.Customer;
-import ca.sheridancollege.wangyana.beans.Region;
 import ca.sheridancollege.wangyana.database.DatabaseAccess;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -40,22 +41,22 @@ public class HomeController {
         return "addCustomer";
     }
 
-    // method to list Customers from database and load listCustomers.html
-    @GetMapping("/listCustomers")
-    public String listCustomers(Model model) {
-        model.addAttribute("customerList", da.getCustomerList());
-        return "listCustomers";
-    }
-
     // method to search Customers from database and load searchCustomers.html
     @GetMapping("/searchCustomers")
     public String searchCustomers(Model model,
-            @RequestParam(required = false) String custRegion) {
+            @RequestParam(name = "custRegion", required = false, defaultValue = "All") String custRegion) {
+
+        List<Customer> customerList = da.getCustomerList();
         model.addAttribute("regions", da.getRegionList());
-        model.addAttribute("customerList",
-                da.getCustomerList().stream()
-                        .filter(c -> c.getCustRegion().equals(custRegion))
-                        .toList());
+        if ("All".equals(custRegion) || custRegion.isEmpty()) {
+            model.addAttribute("customerList", customerList);
+        } else {
+            model.addAttribute("customerList",
+                    customerList.stream()
+                            .filter(c -> c.getCustRegion().equals(custRegion))
+                            .toList());
+        }
+        model.addAttribute("selectedRegion", custRegion);
         return "searchCustomers";
     }
 

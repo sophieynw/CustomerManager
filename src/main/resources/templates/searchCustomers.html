@@ -8,9 +8,9 @@
     </head>
     <body>
         <header>
-            <h1>Search Customers</h1>
             <!-- insert navbar -->
-            <div th:insert="fragments/navbar :: body"></div>
+            <div th:insert="~{fragments/navbar :: body}"></div>
+            <h1>Search Customers</h1>
         </header>
         <main>
             <!-- search bar -->
@@ -21,12 +21,23 @@
                         name="custRegion"
                         onchange="document.getElementById('searchForm').submit();"
                     >
-                        <!-- Change th:field to name -->
-                        <option value="" selected>Select a region</option>
+                        <option
+                            value=""
+                            th:selected="${selectedRegion == null}"
+                        >
+                            Select a region
+                        </option>
+                        <option
+                            value="All"
+                            th:selected="${selectedRegion == 'All'}"
+                        >
+                            All
+                        </option>
                         <option
                             th:each="region : ${regions}"
                             th:value="${region.territoriesAndProvinces}"
                             th:text="${region.territoriesAndProvinces}"
+                            th:selected="${region.territoriesAndProvinces == selectedRegion}"
                         ></option>
                     </select>
                 </label>
@@ -51,6 +62,6 @@
             </table>
         </main>
         <!-- insert footer -->
-        <div th:insert="fragments/footer :: body"></div>
+        <div th:insert="~{fragments/footer :: body}"></div>
     </body>
 </html>
