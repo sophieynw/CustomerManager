@@ -15,7 +15,7 @@ git clone https://github.com/sophieynw/spring_customer_manager.git
 Go to the project directory
 
 ```bash
-cd CustomerManager
+cd path/CustomerManager
 ```
 
 Install dependencies
