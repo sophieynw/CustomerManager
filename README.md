@@ -9,25 +9,25 @@ A simple CRUD application for adding, updating, viewing and deleting customers.
 Clone the project
 
 ```bash
-  git clone https://github.com/sophieynw/spring_customer_manager.git
+git clone https://github.com/sophieynw/spring_customer_manager.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd /spring_customer_manager
+cd CustomerManager
 ```
 
 Install dependencies
 
 ```bash
-  mvn clean install
+mvn clean install
 ```
 
 Start the server
 
 ```bash
-  mvn spring-boot:run
+mvn spring-boot:run
 ```
 
 ## Development
